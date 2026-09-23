@@ -1,81 +1,144 @@
 // script.js - Sabor & Brasa
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('header');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // 1. Inicializar ícones do Feather Icons
-    feather.replace();
+    // 1. Header: fundo ao rolar + botão flutuante depois do hero
+    const hero = document.getElementById('inicio');
+    const fab = document.getElementById('fab');
 
-    // 2. Fechar menu mobile ao clicar em um link
-    const navLinks = document.querySelectorAll('.nav-link');
-    const navbarCollapse = document.querySelector('#navbarNav');
+    const onScroll = () => {
+        const y = window.scrollY;
+        header.classList.toggle('is-scrolled', y > 12);
+        fab.classList.toggle('is-visible', y > hero.offsetHeight * 0.7);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (navbarCollapse.classList.contains('show')) {
-                const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-                bsCollapse.hide();
-            }
+    // 2. Menu mobile
+    const navToggle = document.getElementById('navToggle');
+    const setNav = (open) => {
+        header.classList.toggle('nav-open', open);
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    };
+
+    navToggle.addEventListener('click', () => setNav(!header.classList.contains('nav-open')));
+    document.querySelectorAll('#nav a').forEach(link => link.addEventListener('click', () => setNav(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
+
+    // 3. Link ativo da navegação conforme a seção visível
+    const navLinks = document.querySelectorAll('#nav a[href^="#"]');
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach(link => {
+                link.classList.toggle('is-current', link.getAttribute('href') === `#${entry.target.id}`);
+            });
         });
-    });
+    }, { rootMargin: '-45% 0px -50% 0px' });
 
-    // 3. Smooth Scroll melhorado (para links da navbar)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+    document.querySelectorAll('main section[id]').forEach(section => sectionObserver.observe(section));
 
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                const navbarHeight = document.querySelector('.navbar').offsetHeight || 80;
-                
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - navbarHeight - 20;
+    // 4. Status "aberto agora" e dia atual no quadro de horários
+    // Abre todos os dias às 17h; o horário de fechamento não é informado, então consideramos até meia-noite.
+    const now = new Date();
+    const isOpen = now.getHours() >= 17;
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+    const status = document.getElementById('status');
+    const statusText = document.getElementById('statusText');
+    const hoursBadge = document.getElementById('hoursBadge');
 
-    // 4. Botão WhatsApp com mensagem personalizada (opcional mas legal)
-    const whatsappBtn = document.querySelector('a[href*="whatsapp.com"]');
-    if (whatsappBtn) {
-        whatsappBtn.addEventListener('click', function() {
-            // Você pode adicionar tracking ou mensagem dinâmica aqui no futuro
-            console.log('Cliente abriu WhatsApp para fazer pedido');
-        });
+    if (isOpen) {
+        status.classList.add('is-open');
+        statusText.textContent = 'Brasa acesa. Aberto agora';
+        hoursBadge.classList.add('is-open');
+        hoursBadge.textContent = 'Aberto agora';
+    } else {
+        statusText.textContent = 'Hoje a partir das 17h';
     }
 
-    // 5. Animação suave ao scroll (fade in nos cards)
-    const cards = document.querySelectorAll('.card');
-    
-    const observer = new IntersectionObserver((entries) => {
+    const today = document.querySelector(`#hoursList li[data-day="${now.getDay()}"]`);
+    if (today) today.classList.add('is-today');
+
+    // 5. Abas do cardápio
+    const tabs = document.querySelectorAll('.tab');
+    const indicator = document.querySelector('.tabs-indicator');
+
+    const moveIndicator = (tab) => {
+        indicator.style.width = `${tab.offsetWidth}px`;
+        indicator.style.transform = `translateX(${tab.offsetLeft}px)`;
+    };
+
+    const staggerItems = (panel) => {
+        panel.querySelectorAll('.menu-item').forEach((item, i) => {
+            item.style.setProperty('--i', i);
+            // Reinicia a animação de entrada ao trocar de aba
+            item.style.animation = 'none';
+            void item.offsetWidth;
+            item.style.animation = '';
+        });
+    };
+
+    const selectTab = (tab) => {
+        tabs.forEach(t => {
+            const active = t === tab;
+            const panel = document.getElementById(t.getAttribute('aria-controls'));
+            t.classList.toggle('is-active', active);
+            t.setAttribute('aria-selected', String(active));
+            t.tabIndex = active ? 0 : -1;
+            panel.classList.toggle('is-active', active);
+            panel.hidden = !active;
+            if (active) staggerItems(panel);
+        });
+        moveIndicator(tab);
+    };
+
+    tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => selectTab(tab));
+        tab.addEventListener('keydown', (e) => {
+            if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+            const next = tabs[(index + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+            next.focus();
+            selectTab(next);
+        });
+    });
+
+    const activeTab = document.querySelector('.tab.is-active');
+    staggerItems(document.getElementById(activeTab.getAttribute('aria-controls')));
+    // Espera as fontes carregarem para medir a largura correta da aba
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => moveIndicator(document.querySelector('.tab.is-active')));
+    window.addEventListener('resize', () => moveIndicator(document.querySelector('.tab.is-active')));
+
+    // 6. Revelação suave ao rolar
+    const revealObserver = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('is-in');
+                obs.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-    cards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'all 0.6s ease';
-        observer.observe(card);
-    });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // 6. Mostrar ano atual no footer automaticamente (boa prática)
-    const yearElement = document.querySelector('.footer-year');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+    // 7. Botões magnéticos (apenas com mouse)
+    if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.35;
+                btn.style.transform = `translate(${x}px, ${y}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
     }
 
-    console.log('%c✅ Sabor & Brasa - Script carregado com sucesso!', 'color: #dc3545; font-weight: bold;');
+    // 8. Ano atual no rodapé
+    const yearElement = document.querySelector('.footer-year');
+    if (yearElement) yearElement.textContent = new Date().getFullYear();
 });

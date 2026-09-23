@@ -1,237 +1,277 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-bs-theme="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Sabor & Brasa - Os melhores espetinhos e churrasco de Botuporã - BA">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sabor & Brasa - Espetinhos e churrasco na brasa em Botuporã - BA. Peça pelo WhatsApp." />
+  <meta name="theme-color" content="#14110f" />
   <title>Sabor & Brasa | Espetinhos e Churrasco</title>
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="img/saborebrasa-isotipo-monograma-app.svg" />
 
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <!-- Marca que o JS está ativo (evita esconder conteúdo sem JS) -->
+  <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Feather Icons -->
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js" defer></script>
+  <!-- Fontes: Cabinet Grotesk (títulos) + Satoshi (texto) -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
 
-  <!-- CSS Custom -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Phosphor Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <img src="img/saborebrasa-brand.jpg" alt="Sabor & Brasa" height="65" class="brand rounded-circle">
-        <span class="fw-bold fs-3 text-white">Sabor & Brasa</span>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Sabor & Brasa - início">
+        <img src="img/saborebrasa-logotipo.svg" alt="" width="40" height="40" />
+        <span>Sabor <em>&</em> Brasa</span>
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <nav class="nav" id="nav" aria-label="Principal">
+        <a href="#cardapio">Cardápio</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+        <a class="btn btn-accent btn-sm" href="https://api.whatsapp.com/send/?phone=557788570372&text=Ol%C3%A1%21+Quero+fazer+um+pedido+no+Sabor+e+Brasa" target="_blank" rel="noopener">
+          <i class="ph-fill ph-whatsapp-logo"></i> Pedir agora
+        </a>
+      </nav>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav gap-1">
-          <li class="nav-item"><a class="nav-link" href="#hero"><i data-feather="home"></i> Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="#cardapio"><i data-feather="book-open"></i> Cardápio</a></li>
-          <li class="nav-item"><a class="nav-link" href="#sobre"><i data-feather="info"></i> Sobre</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contato"><i data-feather="phone"></i> Contato</a></li>
-        </ul>
-      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
     </div>
-  </nav>
+  </header>
 
   <main>
-    <!-- Espaçador-->
-    <div class="navbar-spacer"></div>
 
     <!-- Hero -->
-    <section id="hero" class="min-vh-100 d-flex align-items-center text-center hero-bg">
-      <div class="container">
-        <h1 class="display-3 fw-bold text-white mb-3">Sabor & Brasa</h1>
-        <p class="lead text-light fs-4 mb-5">Os melhores espetinhos da cidade, feitos com paixão e brasa!</p>
-        
-        <div id="heroCarousel" class="carousel slide shadow-lg rounded-4 overflow-hidden" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="img/foto_test.png" class="d-block w-100" alt="Espetinhos na brasa" style="height: 520px; object-fit: cover;">
-            </div>
-            <div class="carousel-item">
-              <img src="img/espetinho_test.jpg" class="d-block w-100" alt="Churrasco" style="height: 520px; object-fit: cover;">
-            </div>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="status reveal" id="status">
+            <span class="status-dot"></span>
+            <span id="statusText">Abrimos todo dia às 17h</span>
+          </p>
+
+          <h1 class="reveal" style="--i:1">
+            Espetinho na brasa,<br />
+            <span class="muted-line">do jeito que tem que ser.</span>
+          </h1>
+
+          <p class="lead reveal" style="--i:2">
+            Carne selecionada, tempero fresco e fogo na medida certa.
+            Aqui em Botuporã, de segunda a domingo.
+          </p>
+
+          <div class="hero-actions reveal" style="--i:3">
+            <a class="btn btn-accent btn-lg magnetic" href="https://api.whatsapp.com/send/?phone=557788570372&text=Ol%C3%A1%21+Quero+fazer+um+pedido+no+Sabor+e+Brasa" target="_blank" rel="noopener">
+              <i class="ph-fill ph-whatsapp-logo"></i>
+              Pedir pelo WhatsApp
+            </a>
+            <a class="btn btn-ghost btn-lg" href="#cardapio">
+              Ver cardápio
+              <i class="ph ph-arrow-down"></i>
+            </a>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </button>
+
+          <dl class="hero-facts reveal" style="--i:4">
+            <div><dt>Espetinhos</dt><dd>R$ 5,00</dd></div>
+            <div><dt>Porção c/ aipim</dt><dd>R$ 25,00</dd></div>
+            <div><dt>Horário</dt><dd>17h em diante</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-visual reveal" style="--i:2">
+          <figure class="hero-main">
+            <img src="img/foto_test.png" alt="Fachada do Sabor & Brasa à noite, com mesas e churrasqueira" />
+          </figure>
+          <figure class="hero-float">
+            <img src="img/espetinho_test.jpg" alt="Espetinhos de carne servidos com farofa" />
+          </figure>
+          <div class="hero-tag">
+            <span>a partir de</span>
+            <strong><small>R$</small>5,00</strong>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- Faixa -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Boi</span><i class="ph-fill ph-fire"></i>
+        <span>Porco</span><i class="ph-fill ph-fire"></i>
+        <span>Frango</span><i class="ph-fill ph-fire"></i>
+        <span>Coração</span><i class="ph-fill ph-fire"></i>
+        <span>Cafta</span><i class="ph-fill ph-fire"></i>
+        <span>Espetão</span><i class="ph-fill ph-fire"></i>
+        <span>Pão de alho</span><i class="ph-fill ph-fire"></i>
+        <span>Caldos</span><i class="ph-fill ph-fire"></i>
+        <span>Boi</span><i class="ph-fill ph-fire"></i>
+        <span>Porco</span><i class="ph-fill ph-fire"></i>
+        <span>Frango</span><i class="ph-fill ph-fire"></i>
+        <span>Coração</span><i class="ph-fill ph-fire"></i>
+        <span>Cafta</span><i class="ph-fill ph-fire"></i>
+        <span>Espetão</span><i class="ph-fill ph-fire"></i>
+        <span>Pão de alho</span><i class="ph-fill ph-fire"></i>
+        <span>Caldos</span><i class="ph-fill ph-fire"></i>
+      </div>
+    </div>
 
     <!-- Cardápio -->
-    <section id="cardapio" class="py-5">
-      <div class="container">
-        <h2 class="text-center display-5 fw-bold text-danger mb-5">Nosso Cardápio</h2>
+    <section class="section" id="cardapio">
+      <div class="container menu-grid">
+        <aside class="menu-aside">
+          <p class="eyebrow">Cardápio</p>
+          <h2>Tudo sai da brasa<br />na hora do pedido.</h2>
+          <p class="body">Escolha aqui e mande pelo WhatsApp. A gente confirma e prepara na hora.</p>
 
-        <!-- Petiscos e Porções -->
-        <h3 class="text-center fw-bold mb-4 text-light">Petiscos & Porções</h3>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
-          <div class="col">
-            <div class="card h-100">
-              <img src="img/espetinho_test.jpg" class="card-img-top" alt="Porção com aipim">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Porção com Aipim</h5>
-                <p class="card-text flex-grow-1">Carne assada, aipim, vinagrete e farofa</p>
-                <p class="fw-bold fs-4 text-danger mt-auto">R$ 25,00</p>
-              </div>
-            </div>
+          <figure class="menu-feature">
+            <img src="img/espetinho_test.jpg" alt="Espetinhos clássicos na brasa" loading="lazy" />
+            <figcaption>
+              <span class="pill">Mais pedido</span>
+              <strong>Espetinhos clássicos</strong>
+              <span>Boi, porco, frango, coração, cafta</span>
+            </figcaption>
+          </figure>
+        </aside>
+
+        <div class="menu-body">
+          <div class="tabs" role="tablist" aria-label="Categorias do cardápio">
+            <span class="tabs-indicator" aria-hidden="true"></span>
+            <button class="tab is-active" role="tab" id="tab-petiscos" aria-selected="true" aria-controls="panel-petiscos">
+              Petiscos &amp; Porções <span class="count">6</span>
+            </button>
+            <button class="tab" role="tab" id="tab-bebidas" aria-selected="false" aria-controls="panel-bebidas" tabindex="-1">
+              Bebidas <span class="count">7</span>
+            </button>
           </div>
 
-          <div class="col">
-            <div class="card h-100">
-              <img src="img/espetinho_test.jpg" class="card-img-top" alt="Espetinhos">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Espetinhos Clássicos</h5>
-                <p class="card-text flex-grow-1">Boi, porco, frango, coração, cafta</p>
-                <p class="fw-bold fs-4 text-danger mt-auto">R$ 5,00</p>
-              </div>
-            </div>
-          </div>
+          <ul class="menu-list is-active" id="panel-petiscos" role="tabpanel" aria-labelledby="tab-petiscos">
+            <li class="menu-item">
+              <div class="menu-head"><h3>Porção com Aipim</h3><span class="dots"></span><span class="price"><small>R$</small>25,00</span></div>
+              <p>Carne assada, aipim, vinagrete e farofa</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-head"><h3>Espetinhos Clássicos</h3><span class="dots"></span><span class="price"><small>R$</small>5,00</span></div>
+              <p>Boi, porco, frango, coração, cafta</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-head"><h3>Espetão de Boi</h3><span class="dots"></span><span class="price"><small>R$</small>10,00</span></div>
+            </li>
+            <li class="menu-item">
+              <div class="menu-head"><h3>Peixe Assado</h3><span class="dots"></span><span class="price"><small>R$</small>12,00</span></div>
+              <p>Peixe assado no papel alumínio, na brasa</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-head"><h3>Caldos</h3><span class="dots"></span><span class="price"><small>R$</small>5,00</span></div>
+              <p>Frango, costela, boi e mocotó</p>
+            </li>
+            <li class="menu-item">
+              <div class="menu-head"><h3>Pão de Alho</h3><span class="dots"></span><span class="price"><small>R$</small>5,00</span></div>
+            </li>
+          </ul>
 
-          <div class="col">
-            <div class="card h-100">
-              <img src="img/espetinho_test.jpg" class="card-img-top" alt="Espetão de boi">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Espetão de Boi</h5>
-                <p class="card-text flex-grow-1"></p>
-                <p class="fw-bold fs-4 text-danger mt-auto">R$ 10,00</p>
-              </div>
-            </div>
-          </div>
+          <ul class="menu-list" id="panel-bebidas" role="tabpanel" aria-labelledby="tab-bebidas" hidden>
+            <li class="menu-item"><div class="menu-head"><h3>Sucos</h3><span class="dots"></span><span class="price"><small>R$</small>5,00</span></div></li>
+            <li class="menu-item"><div class="menu-head"><h3>Água de Coco</h3><span class="dots"></span><span class="price"><small>R$</small>5,00</span></div></li>
+            <li class="menu-item"><div class="menu-head"><h3>Refrigerantes</h3><span class="dots"></span><span class="price"><small>R$</small>5,00</span></div></li>
+            <li class="menu-item"><div class="menu-head"><h3>Cervejas</h3><span class="dots"></span><span class="price"><small>R$</small>10,00</span></div></li>
+            <li class="menu-item"><div class="menu-head"><h3>Heineken</h3><span class="dots"></span><span class="price"><small>R$</small>12,00</span></div></li>
+            <li class="menu-item"><div class="menu-head"><h3>Caipirinha</h3><span class="dots"></span><span class="price"><small>R$</small>25,00</span></div></li>
+            <li class="menu-item"><div class="menu-head"><h3>Licor</h3><span class="dots"></span><span class="price"><small>R$</small>5,00</span></div></li>
+          </ul>
 
-          <div class="col">
-            <div class="card h-100">
-              <img src="img/espetinho_test.jpg" class="card-img-top" alt="Peixe assado">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Peixe Assado</h5>
-                <p class="card-text flex-grow-1">Peixe assado no papel alumínio na brasa</p>
-                <p class="fw-bold fs-4 text-danger mt-auto">R$ 12,00</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card h-100">
-              <img src="img/espetinho_test.jpg" class="card-img-top" alt="Caldos">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Caldos</h5>
-                <p class="card-text flex-grow-1">Frango, costela, boi e mocotó</p>
-                <p class="fw-bold fs-4 text-danger mt-auto">R$ 5,00</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card h-100">
-              <img src="img/espetinho_test.jpg" class="card-img-top" alt="Pão de alho">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Pão de Alho</h5>
-                <p class="card-text flex-grow-1"></p>
-                <p class="fw-bold fs-4 text-danger mt-auto">R$ 5,00</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bebidas -->
-        <h3 class="text-center fw-bold mb-4 text-light">Bebidas</h3>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          <div class="col"><div class="card h-100"><img src="img/espetinho_test.jpg" class="card-img-top" alt="Sucos"><div class="card-body d-flex flex-column"><h5 class="card-title">Sucos</h5><p class="fw-bold fs-4 text-danger mt-auto">R$ 5,00</p></div></div></div>
-          <div class="col"><div class="card h-100"><img src="img/espetinho_test.jpg" class="card-img-top" alt="Água de coco"><div class="card-body d-flex flex-column"><h5 class="card-title">Água de Coco</h5><p class="fw-bold fs-4 text-danger mt-auto">R$ 5,00</p></div></div></div>
-          <div class="col"><div class="card h-100"><img src="img/espetinho_test.jpg" class="card-img-top" alt="Refrigerantes"><div class="card-body d-flex flex-column"><h5 class="card-title">Refrigerantes</h5><p class="fw-bold fs-4 text-danger mt-auto">R$ 5,00</p></div></div></div>
-          <div class="col"><div class="card h-100"><img src="img/espetinho_test.jpg" class="card-img-top" alt="Cervejas"><div class="card-body d-flex flex-column"><h5 class="card-title">Cervejas</h5><p class="fw-bold fs-4 text-danger mt-auto">R$ 10,00</p></div></div></div>
-          <div class="col"><div class="card h-100"><img src="img/espetinho_test.jpg" class="card-img-top" alt="Heineken"><div class="card-body d-flex flex-column"><h5 class="card-title">Heineken</h5><p class="fw-bold fs-4 text-danger mt-auto">R$ 12,00</p></div></div></div>
-          <div class="col"><div class="card h-100"><img src="img/espetinho_test.jpg" class="card-img-top" alt="Caipirinha"><div class="card-body d-flex flex-column"><h5 class="card-title">Caipirinha</h5><p class="fw-bold fs-4 text-danger mt-auto">R$ 25,00</p></div></div></div>
-          <div class="col"><div class="card h-100"><img src="img/espetinho_test.jpg" class="card-img-top" alt="Licor"><div class="card-body d-flex flex-column"><h5 class="card-title">Lícor</h5><p class="fw-bold fs-4 text-danger mt-auto">R$ 5,00</p></div></div></div>
+          <p class="menu-note"><i class="ph ph-info"></i> Preços sujeitos a alteração. Confirme no WhatsApp ao fazer o pedido.</p>
         </div>
       </div>
     </section>
 
-    <!-- Pedir pelo WhatsApp -->
-    <section class="py-5 bg-dark-subtle text-center">
-      <div class="container">
-        <h2 class="display-5 fw-bold text-danger mb-3">Faça seu Pedido Agora!</h2>
-        <p class="lead text-secondary mb-4">É rápido, fácil e direto no WhatsApp</p>
-        
-        <a href="https://api.whatsapp.com/send/?phone=557788570372&text=Ol%C3%A1%21+Quero+fazer+um+pedido+no+Sabor+e+Brasa" 
-           target="_blank" 
-           class="btn btn-success btn-lg px-5 py-3 fw-bold fs-5 d-inline-flex align-items-center gap-3">
-          <i data-feather="message-circle" style="width: 34px; height: 34px;"></i>
-          PEDIR PELO WHATSAPP
-        </a>
+    <!-- Pedido -->
+    <section class="order">
+      <div class="container order-inner">
+        <h2 class="reveal">Bateu a fome?<br /><span>Chama no zap.</span></h2>
+        <div class="order-side reveal" style="--i:1">
+          <p>Mande seu pedido direto pelo WhatsApp. É rápido, sem cadastro e sem aplicativo.</p>
+          <a class="btn btn-light btn-lg magnetic" href="https://api.whatsapp.com/send/?phone=557788570372&text=Ol%C3%A1%21+Quero+fazer+um+pedido+no+Sabor+e+Brasa" target="_blank" rel="noopener">
+            <i class="ph-fill ph-whatsapp-logo"></i>
+            (77) 8857-0372
+            <i class="ph ph-arrow-up-right"></i>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Sobre Nós -->
-    <section id="sobre" class="py-5">
-      <div class="container">
-        <div class="row align-items-center g-5">
-          <div class="col-lg-6">
-            <img src="img/espetinho_test.jpg" class="img-fluid rounded-4 shadow" alt="Churrasco Sabor & Brasa">
-          </div>
-          <div class="col-lg-6">
-            <h2 class="display-5 fw-bold text-danger mb-4">Sobre Nós</h2>
-            <p class="lead mb-4">
-              O Sabor & Brasa nasceu da paixão por um churrasco brasileiro de verdade.
-            </p>
-            <p class="mb-4">
-              Utilizamos apenas carnes selecionadas, temperos frescos e o fogo na brasa na medida certa. 
-              Nosso compromisso é entregar sabor, qualidade e rapidez para você.
-            </p>
-            <p class="mb-0">
-              <strong>Qualidade não é detalhe. É nosso padrão.</strong>
-            </p>
-          </div>
+    <!-- Sobre -->
+    <section class="section" id="sobre">
+      <div class="container about-grid">
+        <div class="about-media reveal">
+          <img src="img/saborebrasa-logotipo.svg" alt="Churrasco do Sabor & Brasa" loading="lazy" />
+        </div>
+
+        <div class="about-copy">
+          <p class="eyebrow reveal">Sobre nós</p>
+          <h2 class="reveal" style="--i:1">Nasceu da paixão por um churrasco brasileiro de verdade.</h2>
+          <p class="body reveal" style="--i:2">
+            Usamos apenas carnes selecionadas, temperos frescos e o fogo na brasa na medida certa.
+            Nosso compromisso é entregar sabor, qualidade e rapidez para você.
+          </p>
+
+          <ol class="pillars">
+            <li class="reveal" style="--i:3"><span>01</span><div><h3>Carnes selecionadas</h3><p>Corte escolhido antes de ir pro espeto.</p></div></li>
+            <li class="reveal" style="--i:4"><span>02</span><div><h3>Tempero fresco</h3><p>Preparado no dia, sem atalho.</p></div></li>
+            <li class="reveal" style="--i:5"><span>03</span><div><h3>Brasa no ponto</h3><p>Fogo controlado do começo ao fim.</p></div></li>
+          </ol>
+
+          <blockquote class="reveal" style="--i:6">Qualidade não é detalhe. É nosso padrão.</blockquote>
         </div>
       </div>
     </section>
 
     <!-- Contato -->
-    <section id="contato" class="py-5 bg-dark-subtle">
-      <div class="container">
-        <h2 class="text-center display-5 fw-bold text-danger mb-5">Fale Conosco</h2>
-        <div class="row g-4 justify-content-center">
-          <div class="col-md-4">
-            <div class="card h-100 bg-dark border-0 shadow-sm text-center">
-              <div class="card-body">
-                <i data-feather="clock" class="text-danger mb-3" style="width:50px;height:50px;"></i>
-                <h5>Horário</h5>
-                <p>Segunda a Domingo<br>a partir das 17:00</p>
-              </div>
-            </div>
+    <section class="section section-alt" id="contato">
+      <div class="container contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow reveal">Contato</p>
+          <h2 class="reveal" style="--i:1">Passa aqui hoje.</h2>
+
+          <ul class="contact-list">
+            <li class="reveal" style="--i:2">
+              <i class="ph ph-map-pin"></i>
+              <div><span>Endereço</span><strong>Avenida, 123 - Centro, Botuporã - BA</strong></div>
+            </li>
+            <li class="reveal" style="--i:3">
+              <i class="ph ph-phone"></i>
+              <div><span>Telefone e WhatsApp</span><a href="https://api.whatsapp.com/send/?phone=557788570372" target="_blank" rel="noopener">(77) 8857-0372</a></div>
+            </li>
+            <li class="reveal" style="--i:4">
+              <i class="ph ph-instagram-logo"></i>
+              <div><span>Instagram</span><a href="https://www.instagram.com/churrascaria_sabor/" target="_blank" rel="noopener">@churrascaria_sabor</a></div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="hours reveal" style="--i:2">
+          <div class="hours-head">
+            <h3><i class="ph ph-clock"></i> Horário</h3>
+            <span class="hours-badge" id="hoursBadge">Todos os dias</span>
           </div>
-          <div class="col-md-4">
-            <div class="card h-100 bg-dark border-0 shadow-sm text-center">
-              <div class="card-body">
-                <i data-feather="map-pin" class="text-danger mb-3" style="width:50px;height:50px;"></i>
-                <h5>Endereço</h5>
-                <p>Avenida, 123 - Centro<br>Botuporã - BA</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card h-100 bg-dark border-0 shadow-sm text-center">
-              <div class="card-body">
-                <i data-feather="phone" class="text-danger mb-3" style="width:50px;height:50px;"></i>
-                <h5>Contato</h5>
-                <p>(77) 8857-0372</p>
-              </div>
-            </div>
-          </div>
+          <ul class="hours-list" id="hoursList">
+            <li data-day="1"><span>Segunda</span><span>a partir das 17h</span></li>
+            <li data-day="2"><span>Terça</span><span>a partir das 17h</span></li>
+            <li data-day="3"><span>Quarta</span><span>a partir das 17h</span></li>
+            <li data-day="4"><span>Quinta</span><span>a partir das 17h</span></li>
+            <li data-day="5"><span>Sexta</span><span>a partir das 17h</span></li>
+            <li data-day="6"><span>Sábado</span><span>a partir das 17h</span></li>
+            <li data-day="0"><span>Domingo</span><span>a partir das 17h</span></li>
+          </ul>
         </div>
       </div>
     </section>
@@ -239,38 +279,40 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-black py-5 border-top border-danger">
-    <div class="container">
-      <div class="row gy-4 text-center text-md-start">
-        <div class="col-md-4">
-          <h5 class="text-danger mb-3">Sabor & Brasa</h5>
-          <p class="text-secondary small">Espetinhos e churrasco com sabor de verdade.</p>
-        </div>
-        <div class="col-md-4">
-          <h5 class="text-danger mb-3">Links</h5>
-          <ul class="list-unstyled">
-            <li><a href="#hero" class="text-secondary text-decoration-none">Início</a></li>
-            <li><a href="#cardapio" class="text-secondary text-decoration-none">Cardápio</a></li>
-            <li><a href="#sobre" class="text-secondary text-decoration-none">Sobre</a></li>
-            <li><a href="#contato" class="text-secondary text-decoration-none">Contato</a></li>
-          </ul>
-        </div>
-        <div class="col-md-4">
-          <h5 class="text-danger mb-3">Redes Sociais</h5>
-          <div class="d-flex gap-4 justify-content-center justify-content-md-start fs-3">
-            <a href="https://www.instagram.com/churrascaria_sabor/" target="_blank" class="text-secondary"><i class="bi bi-instagram"></i></a>
-            <a href="https://api.whatsapp.com/send/?phone=557788570372" target="_blank" class="text-secondary"><i class="bi bi-whatsapp"></i></a>
-          </div>
-        </div>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="#inicio">
+          <img src="img/saborebrasa-logotipo.svg" alt="" width="40" height="40" />
+          <span>Sabor <em>&</em> Brasa</span>
+        </a>
+        <p>Espetinhos e churrasco com sabor de verdade.</p>
       </div>
-      <div class="text-center text-secondary mt-5 pt-4 border-top border-secondary small">
-        © 2026 Sabor & Brasa - Todos os direitos reservados
+
+      <nav class="footer-links" aria-label="Rodapé">
+        <a href="#inicio">Início</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="https://www.instagram.com/churrascaria_sabor/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+        <a href="https://api.whatsapp.com/send/?phone=557788570372" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
       </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span class="footer-year">2026</span> Sabor & Brasa. Todos os direitos reservados.</span>
+      <span>Botuporã - BA</span>
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Botão flutuante (mobile) -->
+  <a class="fab" id="fab" href="https://api.whatsapp.com/send/?phone=557788570372&text=Ol%C3%A1%21+Quero+fazer+um+pedido+no+Sabor+e+Brasa" target="_blank" rel="noopener" aria-label="Pedir pelo WhatsApp">
+    <i class="ph-fill ph-whatsapp-logo"></i>
+    <span>Pedir</span>
+  </a>
+
   <script src="js/script.js"></script>
 </body>
 </html>
